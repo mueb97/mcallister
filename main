@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David McAllister – Außenminister 2025</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      color: #00c8ff;
+      background: radial-gradient(circle at center, #000 40%, #0a2342 100%);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .radar-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image:
+        radial-gradient(circle at center, rgba(0, 200, 255, 0.1) 0%, transparent 60%),
+        repeating-radial-gradient(circle at center, rgba(0, 200, 255, 0.05) 1px, transparent 2px);
+      animation: radarSweep 15s linear infinite;
+      opacity: 0.2;
+    }
+
+    @keyframes radarSweep {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .header {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.85rem;
+      opacity: 0.5;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(0, 200, 255, 0.4);
+    }
+
+    #reason-display {
+      background: rgba(0, 200, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      max-width: 600px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 200, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 200, 255, 0.2);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    button, .ju-link {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    button {
+      background: #ffffff;
+      color: #0a2342;
+    }
+
+    button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .ju-link {
+      background: #ffffff;
+      color: #0a2342;
+    }
+
+    .ju-link:hover {
+      background-color: #e0e0e0;
+    }
+
+    .thank-you {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      transform: translateY(100vh);
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.6s ease-in-out;
+      backdrop-filter: blur(12px);
+      border-top: 2px dashed #00c8ff;
+      box-shadow: inset 0 0 40px rgba(0, 200, 255, 0.2);
+      border-radius: 12px;
+    }
+
+    .thank-you.show {
+      transform: translateY(0);
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="radar-bg"></div>
+  <div class="header">FROM BAD BEDERKESA TO AA</div>
+  <h1>David McAllister ist mein Außenminister, weil</h1>
+  <div id="reason-display"></div>
+  <button onclick="vote()">VOTE</button>
+
+  <div class="thank-you" id="thankYou">
+    <h1>Danke für Deine Unterstützung. 🚀✌️<br><br>Mehr MAC für Deutschland.</h1>
+    <a class="ju-link" href="https://www.junge-union.de/mitmachen/mitglied-werden/" target="_blank">Jetzt Mitglied werden</a>
+    <canvas id="chart" style="max-width: 600px; margin-top: 3rem;"></canvas>
+$1
+
+  <script>
+    const reasons = [
+  "... er außenpolitische Erfahrung wie kein anderer hat.",
+  "... er NATO und EU strategisch verbindet.",
+  "... er für Klarheit und Souveränität steht.",
+  "... er mit kühlem Kopf Krisen meistert.",
+  "... er Brücken in alle Welt baut.",
+  "... er das Völkerrecht verteidigt.",
+  "... er strategisch, sachlich, souverän ist.",
+  "... er für Prinzipien statt Populismus steht.",
+  "... er für Werte, Haltung und Stärke einsteht.",
+  "... er Europa transatlantisch vertritt.",
+  "... er junge Menschen außenpolitisch mitnimmt.",
+  "... er digitale Formate verantwortungsvoll nutzt.",
+  "... er multilaterale Lösungen aktiv mitgestaltet.",
+  "... er in Brüssel, Berlin und Straßburg gleichermaßen präsent ist.",
+  "... er weltweite Kontakte pflegt.",
+  "... er im Auswärtigen Ausschuss Erfahrung gesammelt hat.",
+  "... er für die Freiheit weltweit eintritt.",
+  "... er für internationale Solidarität steht.",
+  "... er Krisenregionen kennt und besucht hat.",
+  "... er diplomatische Gremien souverän leitet.",
+  "... er Prinzipien der westlichen Werteordnung vertritt.",
+  "... er sich für mehr Europa in der Welt stark macht.",
+  "... er das Atlantische Bündnis verteidigt.",
+  "... er außenpolitische Herausforderungen benennt.",
+  "... er komplexe Zusammenhänge einfach erklären kann.",
+  "... er zwischen den Kulturen vermitteln kann.",
+  "... er Loyalität zur Bundesrepublik verkörpert.",
+  "... er die deutsch-französische Partnerschaft lebt.",
+  "... er sich für die Freiheit in Belarus eingesetzt hat.",
+  "... er für faire Handelsbeziehungen kämpft.",
+  "... er Entwicklungspolitik als Chance sieht.",
+  "... er internationale Menschenrechtskonventionen verteidigt.",
+  "... er keine Scheu vor heiklen Themen hat.",
+  "... er im Umgang mit China strategisch denkt.",
+  "... er Verantwortung in Europa übernimmt.",
+  "... er sicherheitspolitisch erfahren ist.",
+  "... er glaubwürdig Positionen vertritt.",
+  "... er mit internationalen Medien sicher umgeht.",
+  "... er Mehrsprachigkeit im Amt lebt.",
+  "... er für religionsübergreifenden Dialog eintritt.",
+  "... er auch für die Diaspora ein Ohr hat.",
+  "... er Antisemitismus konsequent bekämpft.",
+  "... er klare Kante gegen Extremismus zeigt.",
+  "... er parteiübergreifende Anerkennung genießt.",
+  "... er zur Versachlichung der Debatte beiträgt.",
+  "... er der CDU internationales Profil gibt.",
+  "... er für faire Migrationspolitik eintritt.",
+  "... er sich für feministische Außenpolitik öffnen kann.",
+  "... er auch neue außenpolitische Akzente setzt.",
+  "... er die deutsch-britischen Beziehungen verkörpert.",
+  "... er auf Dialog statt Konfrontation setzt.",
+  "... er Sanktionen gezielt mitträgt.",
+  "... er auf neue Partnerschaften mit Afrika setzt.",
+  "... er der Ukraine den Rücken stärkt.",
+  "... er für die Freiheit Taiwans eintritt.",
+  "... er an Europas Zukunft glaubt.",
+  "... er die europäische Sicherheitspolitik mitgestalten will.",
+  "... er politische Erfahrung aus allen Ebenen mitbringt.",
+  "... er sich der Verantwortung für Deutschland bewusst ist.",
+  "... er Teil einer neuen außenpolitischen Generation ist.",
+  "... er in den USA respektiert wird.",
+  "... er das deutsch-israelische Verhältnis fördert.",
+  "... er für globale Bildungszugänge wirbt.",
+  "... er die UN als Ordnungspartner verteidigt.",
+  "... er für Abrüstungskontrolle plädiert.",
+  "... er sich für Pressefreiheit weltweit einsetzt.",
+  "... er demokratische Prozesse unterstützt.",
+  "... er für eine wertegeleitete Außenpolitik steht.",
+  "... er klare rote Linien in der Diplomatie zieht.",
+  "... er zwischen Bundesregierung und EU vermitteln kann.",
+  "... er transatlantisch tief vernetzt ist.",
+  "... er für nachhaltige Außenpolitik einsteht.",
+  "... er Klimapolitik in die Außenpolitik integriert.",
+  "... er digitale Souveränität in der Außenpolitik denkt.",
+  "... er Deutschland als starke Mittelmacht positioniert.",
+  "... er Sicherheit und Entwicklung zusammendenkt.",
+  "... er Konfliktprävention ernst nimmt.",
+  "... er mit NGOs konstruktiv spricht.",
+  "... er als Verhandler international anerkannt ist.",
+  "... er auch unter Druck gelassen bleibt.",
+  "... er öffentlich und intern dieselbe Haltung zeigt.",
+  "... er neue Allianzen im Indo-Pazifik mitgestaltet.",
+  "... er außenpolitisch mehr als Schlagzeilen bietet.",
+  "... er für Gespräche auf Augenhöhe steht.",
+  "... er als Christ Verantwortung für Frieden sieht.",
+  "... er Europa verteidigungsfähig halten will.",
+  "... er keine geopolitische Augenwischerei betreibt.",
+  "... er sich für faire Lieferketten stark macht.",
+  "... er auch bei Tech-Themen diplomatisch denkt.",
+  "... er für Cybersicherheit eintritt.",
+  "... er außenpolitische Konsistenz lebt.",
+  "... er für das transatlantische Bündnis brennt.",
+  "... er zwischen Bundesregierung und Bundestag übersetzen kann.",
+  "... er außenpolitisch langfristig denkt.",
+  "... er Stabilität als zentrales Ziel begreift.",
+  "... er Rüstungsexporte restriktiv begleitet.",
+  "... er für internationale Gerichtsbarkeit einsteht.",
+  "... er deutsche Interessen klar und freundlich vertritt.",
+  "... er der richtige Mann zur richtigen Zeit ist.",
+  "... er Deutschland als Friedensmacht stärken will.",
+  "... er klare Werte vertritt – außen wie innen.",
+  "... er für Haltung, Herz und Hanse steht."
+];
+
+    let currentReason = 0;
+    let idleTimer;
+    let startX = 0;
+
+    const reasonDisplay = document.getElementById('reason-display');
+    const thankYou = document.getElementById('thankYou');
+
+    function showReason(index) {
+      reasonDisplay.classList.add('fade-out');
+      setTimeout(() => {
+        reasonDisplay.textContent = reasons[index];
+        reasonDisplay.classList.remove('fade-out');
+      }, 200);
+    }
+
+    function nextReason() {
+      if (thankYou.classList.contains('show')) return;
+      currentReason = (currentReason + 1) % reasons.length;
+      showReason(currentReason);
+    }
+
+    function vote() {
+      clearInterval(idleTimer);
+      thankYou.classList.add('show');
+    }
+
+    function resetIdleTimer() {
+      clearInterval(idleTimer);
+      idleTimer = setInterval(nextReason, 5000);
+    }
+
+    reasonDisplay.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    reasonDisplay.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      if (Math.abs(startX - endX) > 50) nextReason();
+    });
+
+    ['click', 'touchstart'].forEach(event => {
+      document.addEventListener(event, resetIdleTimer);
+    });
+
+    showReason(currentReason);
+    resetIdleTimer();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let voteCounts = new Array(reasons.length).fill(0);
+
+    function vote() {
+      clearInterval(idleTimer);
+      voteCounts[currentReason]++;
+      thankYou.classList.add('show');
+
+      // Diagramm vorbereiten
+      const topVotes = voteCounts
+        .map((count, index) => ({ reason: reasons[index], count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+
+      const ctx = document.getElementById('chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: topVotes.map(e => e.reason.slice(4, 70)),
+          datasets: [{
+            label: 'Stimmen',
+            data: topVotes.map(e => e.count),
+            backgroundColor: '#00c8ff'
+          }]
+        },
+        options: {
+          responsive: true,
+          indexAxis: 'y',
+          scales: {
+            x: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
